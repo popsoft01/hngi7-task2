@@ -2,7 +2,9 @@
 // Comment the line below to see error messages
 error_reporting(0);
 
+
 include("function.php");
+
 
 $baseDir = 'scripts';
 $files = scandir($baseDir, 1);
@@ -26,7 +28,28 @@ if (isset($_GET["json"])) {
     }
 
     echo json_encode($pass_array);
-} else { ?>
+} else { 
+    
+//get the current page number
+//     $page = isset($_GET["page"]) ? $_GET(["page"]) : 1;
+
+//     // length of files we want per page
+//     $length = 50;
+    
+//     $files_length = count($files);
+//     //calculate the start and end
+//     $start = ($page - 1) * $length;
+//     $end = $start + $length;
+    
+//     $has_previous = $start > 0;
+//     $has_next = count($files) > $end;
+    
+//     $next_link = $has_next ? "?page=".($page + 1) : "";
+//     $prev_link= $has_previous ? "?page=".($page - 1) : "";
+    
+//     //splice the array to get the required section
+//     $files = array_slice($files, $start, $end);
+   ?>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -39,12 +62,6 @@ if (isset($_GET["json"])) {
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700;900&display=swap" rel="stylesheet" />
         <title>Team Flash</title>
     </head>
-    <style>
-        tbody tr:hover {
-            background-color: rgb(236, 234, 234);
-            border-left: 3px solid #4f67ed;
-        }
-    </style>
 
     <body style="background-color: #f6f7fb;">
         <div class="container-fluid">
@@ -68,14 +85,14 @@ if (isset($_GET["json"])) {
                         <ul class="navbar-nav ml-auto mr-5">
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <span style="font-size: 18px;" class="font-weight-bold text-dark">@sixpathdev</span>
+                                    <span style="font-size: 18px;" class="font-weight-bold text-dark">@Zero</span>
                                     <br />
                                     <span style="font-size: 12px; font-weight: 700;">Team Lead</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">
-                                    <span style="font-size: 18px;" class="font-weight-bold text-dark">@Glowree</span><br />
+                                    <span style="font-size: 18px;" class="font-weight-bold text-dark">@Viviydesign</span><br />
                                     <span style="font-size: 12px; font-weight: 700;">Front-End Lead</span>
                                 </a>
                             </li>
@@ -118,18 +135,23 @@ if (isset($_GET["json"])) {
                     $id = $list[$i]['id'];
                     $output = $list[$i]['output'];
                     $status = $list[$i]['status']; ?>
-                    
-                <tr class="row" style="<?php echo $status == 'Fail' ? 'background-color:red;color:white;':'background-color:green;color:white;' ?>">
-                    <td class="col-1 col-md-1 text-center"><?php echo $i+1; ?></td>
-                    <td class="col-3 col-md-2"><?php echo $list[$i]['name']; ?></td>
-                    <td class="col-5 col-md-7" style="font-size: 14px;"><?php echo $output; ?></td>
-                    <td class="col-3 col-md-2">
-                        <span style="background-color: <?php echo $status == 'Fail' ? 'red':'green' ?>; <?php echo $status == 'Fail' ? 'color:white;':'color:white;' ?> padding: 2px 15px;" class="rounded"><?php echo $status; ?></span>
-                    </td>
-                </tr>
+
+<tr class="row">
+    <td class="col-1 col-md-1 text-center" style="background: white;"><?php echo $i + 1; ?></td>
+    <td class="col-3 col-md-2" style="background: white;"><?php echo $list[$i]['name']; ?></td>
+    <td class="col-5 col-md-7" style="background: white;font-size: 14px;"><?php echo $output; ?></td>
+    <td class=" col-3 col-md-2 text-center" style="background-color: <?php echo $list[$i]['status'] == 'Fail' || $list[$i]['status'] == '' ? 'red' : 'green' ?>; <?php echo $status == 'Fail' ? 'color:white;' : 'color:white;' ?> padding: 2px 15px;">
+        <span><?php echo $status == '' ? 'Fail' : $status ?></span>
+    </td>
+</tr>
+                  
         <?php } ?>
                 </tbody>
             </table>
+<!--             <div class="d-flex justify-content-between">
+                <a href="<?php echo $prev_link; ?>" <?php echo ($has_prev) ? "" : "disabled"; ?> class="btn btn-primary btn-sm">Previous</a>
+                <a href="<?php echo $next_link; ?>" <?php echo ($has_next) ? "" : "disabled"; ?> class="btn btn-primary btn-sm">Next</a>
+            </div> -->
         </div>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
